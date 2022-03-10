@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<!-- CSS 내부 장착 -->
+	<style>
+		.header img {
+			float: left;
+		}
+		.toMain_img_name {
+			padding-top: 15px;
+		}
+		.upbutton {
+			background-color: #64CCC9;
+			color: #555555;
+			border-radius: 12px;
+			font-size: 20px;
+			padding: 12px 28px;
+			margin-top: 40px;
+			margin-right: 10px;
+			cursor: pointer;
+			border: 1px solid #64CCC9;
+		}
+		.upbutton:hover {
+			background-color: white;
+			color: black;
+			border: 2px solid #64CCC9;
+		}
+		.already_click {
+			border-radius: 12px;
+			font-size: 20px;
+			padding: 12px 28px;
+			margin-top: 40px;
+			margin-right: 10px;
+			background-color: rgba(255, 255, 255, 0.8);
+			color: black;
+			border: 2px solid #64CCC9;
+		}
+
+		.footer_row {
+			width: 30%;
+			float: left;
+			margin-left: 10%;
+			line-height: 150%;
+		}
+		.footer_inside {
+			list-style:none;
+		}
+
+		.menu_box{
+			background-color: rgba( 0, 0, 0, 0.0 );
+			float: top;
+			width: 100%;
+			height: 250px;
+		}
+
+
+		.college {
+			float: left;
+			margin-left: 3%;
+			overflow: scroll;
+			overflow-x:hidden;
+			width: 25%;
+			height: 100px;
+			padding: 10px;
+			background-color: white;
+			border : 1px solid #c0c0c0;
+		}
+		.col {
+			cursor: pointer;
+			font-size: 18px;
+		}
+		.department {
+			float: right;
+			margin-right: 18%;
+			overflow: scroll;
+			overflow-x:hidden;
+			width: 25%;
+			height: 100px;
+			padding: 10px;
+			background-color: white;
+			border : 1px solid #c0c0c0;
+		}
+		.dep {
+			cursor: pointer;
+			font-size: 18px;
+		}
+
+		#table_title {
+		}
+		.notice_list {
+			width: 86%;
+			margin-left: 7%;
+			margin-right: 7%;
+			padding: 10px;
+			background-color: #f0f0f0;
+			border-color: black;
+			border-collapse: collapse;
+			table-layout: fixed;
+		}
+		.notice_list th {
+			padding: 10px;
+			border-left: 3px solid white;
+			border-bottom: 2px solid #949494;
+			font-weight: bold;
+			font-size: 25px;
+		}
+		.notice_list td {
+			padding: 10px;
+			border-left: 3px solid white;
+			border-bottom: 1px solid #949494;
+			font-size: 18px;
+		}
+
+		.notice_script {
+			width: 86%;
+			margin-left: 7%;
+			margin-right: 7%;
+			padding: 10px;
+			background-color: #f0f0f0;
+		}
+		.script_title {
+			padding: 10px;
+			width: 86%;
+			font-weight: bold;
+			font-size: 30px;
+			border-bottom: 1px solid #999999;
+			border-left: 0.5px solid #999999;
+		}
+		.script_data {
+			padding: 10px;
+			width: 40%;
+			font-size: 24px;
+			border-bottom: 2px solid black;
+			border-left: 0.5px solid #999999;
+		}
+		#script_inside {
+			padding: 10px;
+			font-size: 18px;
+			word-break: keep-all;
+		}
+
+		.back_button {
+			background-color: white;
+			color: black;
+			border-radius: 8px;
+			font-size: 20px;
+			padding: 12px 28px;
+			margin-top: 40px;
+			margin-right: 10px;
+			cursor: pointer;
+  			position: relative;
+  			left: 45%;
+		}
+	</style>
+
+	<!-- 맨위 주소창 부분 -->
+	<link rel="shortcut icon" type="image/x-icon" href="https://github.com/defaultgroup/PathFinder_imgs/blob/master/title_img_square.jpg?raw=true">
+	<title>길잡이</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<body>
+	<div class="menu_box">
+		<div class = "header">
+			<a href="Main_page.html">
+				<img src="https://github.com/defaultgroup/PathFinder_imgs/blob/master/title_img_small.png?raw=true" alt="길잡이 로고" width="120" height="150">
+				<img class="toMain_img_name" src="https://github.com/defaultgroup/PathFinder_imgs/blob/master/path_finder_name.png?raw=true" alt="길잡이 이름" width="200" height="120">
+			</a>
+			<button class = "upbutton" onclick="click_school_notice()">학교 공지사항</button>
+			<button class = "already_click" onclick="click_department_notice()">학과 공지사항</button>
+			<button class = "upbutton" onclick="click_department_graduate()">학과 졸업요건</button>
+			<button class = "upbutton" onclick="click_department_learning()">학과 교육과정</button>
+			<button class = "upbutton" onclick="click_today_menu()">오늘의 식단</button>
+			<button class = "upbutton" onclick="click_campus_map()">캠퍼스 맵</button>
+		</div>
+		<br>
+		<!-- 단과대학 스크롤 -->
+		<div class = "college">
+			<a class = "col" onclick="IT_College()">IT 대학</a><hr>
+			<a class = "col">공과 대학</a><hr>
+			<a class = "col">사회과학 대학</a><hr>
+			<a class = "col">인문 대학</a><hr>
+			<a class = "col">자연과학 대학</a><hr>
+			<a class = "col">법과 대학</a><hr>
+		</div>
+		<div class = "department">
+			<a class = "dep" onclick="set_computer()">컴퓨터학부</a><hr>
+			<a class = "dep" onclick="set_SW()">소프트웨어학부</a><hr>
+			<a class = "dep">글로벌미디어학부</a><hr>
+			<a class = "dep">전자정보공학부</a><hr>
+			<a class = "dep">스마트시스템소프트웨어학과</a><hr>
+			<a class = "dep">미디어경영학과</a><hr>
+		</div>
+	</div>
+	<hr>
+	<br><br>
+
+	<!-- 게시글 목록 -->
+	<table class = "notice_list" id="notice_list">
+		<thead align="left">
+			<th id="table_title" width="60%"> 제목</th>
+			<th> 작성일</th>
+			<th> 등록부서</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td onclick="switch_table(); set_count(1);" style="cursor: pointer;">[경기도경제과학진흥원] 2020년 경기도 온라인 블록체인 해커톤</td>
+				<td>2020-09-10</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(2);" style="cursor: pointer;">'2020 사이버공격방어대회' 개최 안내</td>
+				<td>2020-09-08</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(3);" style="cursor: pointer;">[SH&M] 숭실대학교 온라인 어학 프로그램_학교장학금지원 안내(재학생 대상)</td>
+				<td>2020-09-03</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(4);" style="cursor: pointer;">수강신청 관련 안내 및 Q&A</td>
+				<td>2020-08-12</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(5);" style="cursor: pointer;">2020학년도 2학기 학과근로장학생 모집 안내</td>
+				<td>2020-08-07</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(6);" style="cursor: pointer;">2020-2학기 SW분야 복수 및 융합전공 튜터링 운영안내 및 튜터 모집</td>
+				<td>2020-08-04</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(7);" style="cursor: pointer;">2020-2학기 공학교육인증 선-후수 교과목 수강신청 안내</td>
+				<td>2020-07-31</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(8);" style="cursor: pointer;">2020학년도 2학기 '숭실평화통일스쿨' 운영 변경 안내</td>
+				<td>2020-07-27</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(9)" style="cursor: pointer;">(AI 공모전 개최안내)2020년도 KSB 인공지능 프레임워크/플랫폼(BeeAI) 활용 공모전 개최 안내(~8.7(금))</td>
+				<td>2020-07-24</td>
+				<td>소프트웨어학부</td>
+			</tr>
+			<tr>
+				<td onclick="switch_table(); set_count(10);" style="cursor: pointer;">제7회 소프트웨어 개발보안 경진대회」 홍보</td>
+				<td>2020-07-15</td>
+				<td>소프트웨어학부</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- 데이터 게시글 -->
+	<table class = "notice_script" id="notice_script" style="display: none;">
+		<tr id="script_title_column">
+			<td class="script_title" colspan="2">csv파일 내부 제목</td>
+		</tr>
+		<tr>
+			<td class="script_data">작성자 : </td>
+			<td class="script_data">작성일 : </td>
+		</tr>
+		<tr>
+			<td colspan="2" id="script_inside">데이터들 출력</td>
+		</tr>
+	</table>
+	<button class="back_button"id="notice_script_button" onclick="switch_table()" style="display: none;" style="margin-left: 40%;">돌아가기</button>
+
+	<br>
+	<hr>
+	<footer class="lowest">
+	  <div class="row">
+	    <div class="footer_row">
+	      <h5>Contact with Developer</h5>
+	      <ul class="footer_inside">
+	        <li><a class="text-muted">심상현 - 5338095@gmail.com</a></li>
+	        <li><a class="text-muted">김한주 - kihaju3188@gmail.com</a></li>
+	        <li><a class="text-muted">이재원 - elroy03@naver.com</a></li>
+	      </ul>
+	    </div>
+	    <div class="footer_row">
+	      <h5>Donate to Developer</h5>
+	      <ul class="footer_inside">
+	        <li><a class="text-muted">우리 은행 : 1002-659-539074(심상현)</a></li>
+	        <li><a class="text-muted">하나 은행 : 21991028223907(김한주)</a></li>
+	        <li><a class="text-muted">국민 은행 : 937702-00-724765(이재원)</a></li>
+	      </ul>
+	  </div>
+	</footer>
+	<!-- 데이터 저장 -->
+	<script type="text/javascript">
+		var row1=[
+		["[경기도경제과학진흥원] 2020년 경기도 온라인 블록체인 해커톤"],
+		["2020.09.10", "최고관리자"],
+		[" 안녕하세요. 경기도경제과학진흥원입니다.경기도경제과학진흥원에서는 블록체인 기반 창업, 사회문제 해결, 공공서비스 혁신 등 아이디어 발굴 및 비즈니스모델 창출을 위하여「2020년 경기도 온라인 블록체인 해커톤」참가자를 모집하오니 관심 있는 분들의 많은 참여 바랍니다.     신청기간2020.09.08. (화) 09:00 ~ 2020.09.21. (월) 17:00 까지신청방법온라인 접수 : ( www.biz-cowork.com ) 신청대상블록체인  산업분야의 우수 아이디어를 보유하고 구현능력이 있는 예비창업자 및 스타트업, IT기업 재직자, 대학생 등 모집규모                  1팀당 5명 이하로 구성, 18개팀 예선 선발 (예정)예선 / 결과발표         09.24. (수)  예선은 서면으로 진행됨기술지원 (멘토링)      10.05. (월) ~ 10.23. (금)결선(본행사)             10.26. (월)  행사목적- 온라인 해커톤을 통해  블록체인  기반 창업, 사회문제해결, 공공서비스 혁신 등 아이디어 발굴 및 비즈니스모델 창출 모집부문  - 창업 모델 분야, 사회혁신분야 2개 부문  * 창업 모델 분야, 사회 혁신 분야(분야별 7~8개 팀)주제선정- 경기도 블록체인 산업 활성화 및 서비스 구현을 위한 아이디어 개발- 창업 모델 분야 : 수입 창출 가능한 비즈니스 활용 아이디어(全 산업 분야)- 사회 혁신 분야 : 경기도민의 편의와 삶의 질 향상 등 공공 서비스 분야운영기관- 경기도경제과학진흥원 상금 및 특전 : 총 5개팀 선정·시상 / 1,800만원 - 최우수상 1팀 500만원- 우수상 2팀(분야별 1팀) 각 400만원- 장려상 2팀(분야별 1팀) 각 250만원  * 위 일정 및 내용은 주최·주관의 사정에 따라 변경될 수 있습니다.* PC 등 기타장비는 지원하지 않습니다.* 신청서 등 제출내용이 허위, 타인의 도용, 참가자 외 타인참석 등 부적절한 행위가 있을 경우, 실격 등 지원취소, 기타 불이익이    있을 수 있습니다.* 타 공모전을 통한 기지원 또는 지원예정의 경우 지원이 불가합니다. (사후 확인이 되더라도 지원금 반환조치 등 입상취소)* 입상작에 대한 경기도의 무상사용 및 실시권은 자동 확보됩니다.* 특별한 사정없이 본선·결선 불참 시 실격처리 됩니다.* 제출서류 및 기재사항 누락 시 실격처리 될 수 있습니다.2020년 경기도 온라인  블록체인  해커톤 운영사무국 연락처 : 070-4282-2466이메일 : yd@prime-c.co.kr"],
+		];
+		var row2=[
+		["'2020 사이버공격방어대회' 개최 안내"],
+		["2020.09.08", "최고관리자"],
+		["국가정보원에서 '2020 사이버공격방어대회'를 아래와 같이 개최한다고 통보하여 안내드립니다.  가. 참가신청: 8.31.(월) ~ 9.18.(금), 홈페이지 접수(http://ccs.cstec.kr)  나. 참가형태: 일반·공공팀(국가·공공기관), 팀당 최대 4명  다. 예선: 9.26.(토) 09:00 ~ 24:00, 온라인 문제풀이  라. 본선: 10.29.(목) ~ 30.(금), 온라인 실시간 방어 및 문제풀이  마. 시상식: 10.30.(금) 13:30 ~ 14:00, 온라인 진행 2020 사이버공격방어대회 참가 안내1. 개최 목적 국가정보원은 코로나19 사태와 유사한 사이버공격 대유행으로 인한 국가 재난에 대비, 사이버보안 전문가를 발굴하고 사이버위기 대응능력 제고를 위해 2020 사이버공격방어대회를 비대면 온라인으로 개최2. 대회 개요 o 대회명 : 2020년 사이버공격방어대회(Cyber Conflict Exercise) o 주최 : 국가정보원 o 주관 : 국가보안기술연구소 o 일정구 분기 간내 용비 고대회예선참가신청 8.31(월) ~ 9.18(금)o 공방대회 예선 참가자 모집홈페이지 등록(http://cce.cstec.kr)예 선 9.26(토) 09:00~24:00o 웹해킹ㆍ포렌식ㆍ리버싱o 암호ㆍMISC온라인 문제풀이본선 설명회10.28(수)09:00~12:00o 공방대회 본선 설명회온라인 진행본 선10.29(목)09:00~21:00o 다양한 형태의 실시간 침투공격에 대해 방어 수행온라인 실시간 방어 및 문제풀이10.30(금)09:00~12:00시상식10.30(금)13:30~14:00o 대회 순위 발표 및 시상온라인 진행CCE 리뷰10.30(금)14:00~16:30o 대회 수상자 결과 브리핑 및 Q&A온라인 진행3. 참가 신청 o 대회 예선 참가 - 접수기간 : 2020.8.31(월) ~ 9.18(금) - 참가분야 : 방어분야(공공ㆍ일반팀) * 국가ㆍ공공기관의 경우 공공팀으로만 신청가능 * 학생ㆍ직장인의 경우 일반팀으로만 신청가능 - 참가자격 : 팀 단위(최대4명, 1팀)으로 신청 가능하며, 국가ㆍ공공기관 참가자는 협력업체 직원과 함께 참여 가능 * 다수의 기관(A부처, B공사, C위원회 등)이 한 개의 연합팀을 이루어 참여 가능 * 협력업체(국가ㆍ공공기관 상근 파견자)의 경우 팀당 최대 2인 참여 가능추후 해당기관에 파견(상주)중인 사실을 증명할 수 있는 서류 제출 - 진행방식 : 문제풀이 - 미션유형 : 웹해킹, 포렌식, 리버싱, 암호ㆍMISC - 준비물 : 가상머신 구동이 가능한 노트북 또는 PC4. 세부 내용 o 예선 : 온라인 문제풀이 방식으로 본선 진출팀(일반10팀ㆍ공공20팀) 선발 * 동점자 발생시 먼저 점수를 획득한 팀에 우선순위를 부여 o 본선 : 실제 사고사례 기반 미션을 구성하여 방어팀이 실시간 방어 및 문제풀이를 온라인으로 수행 - 팀은 한 장소에 모여서 본선을 수행해야 하고, 대회가 진행되는 동안 제공된 웹캠을 설치하여 몸은 멀리 마음은 가까이 운영팀과 소통 - 미션별 방어실패ㆍ패치검증ㆍ가용성 등을 평가하여 점수 차감 - 각 팀별로 대회 시스템 다수 제공 o 상금 : 총 6,000만원 - 종합우승(1), 우승(공공 1ㆍ일반 1)팀에게는 국가정보원상 수여 * 상세 내역은 홈페이지를 통해 추후 공개 o CCE 리뷰 - 대회 수상자(종합우승, 공공ㆍ일반우승팀) 결과 브리핑 및 Q&A * 대회 수상자(종합우승, 공공ㆍ일반우승팀)는 CCE 리뷰에 온라인으로 반드시 참여5. 기타 사항o 실시간 대회 진행상황 정보 제공 * 대회 진행상황과 방어팀 스코어 정보 제공 o 대회 현황 스트리밍 서비스 제공 - 일반 참가자 대상 온라인 참관(총 2회), 온라인 시상식, CCE 리뷰를 스트리밍 서비스로 제공6. 문의처 o 대회 운영사무국 - 전화 : 070-7688-3129- E-mail : cce@nsr.re.kr 끝."],
+		];
+		var row3=[
+		["[SH&M] 숭실대학교 온라인 어학 프로그램_학교장학금지원 안내(재학생 대상)"],
+		["2020.09.03", "최고관리자"],
+		["숭실대학교 SH&M 담당자 장혜진입니다. 저희 SH&M(Soongsil Holdings & Management)은 숭실대학교 교내에서 행해지는 어학교육을 수행하고 있는 학교법인산하 교육기관입니다. 코로나19가 장기화됨에 따라, 오프라인 어학학습에 어려움을 겪고 있는 숭실인을 위해 저희는 온라인 강의의 대표주자인 “야나두”와 “튜터링” 강의를 도입하였습니다. 특별히 이번 2학기에 입학사정센터의 주최하에 학과별 재학생들을 대상으로 학교장학금을 지원하여 본 과정에 참가할 수 있도록 하는 기회를 마련하게되었습니다. . 학교장학금이 지원 가능한 과목은 “숭실대 야나두 과정” 과 “숭실대 튜터링 과정(모바일 1:1영어, 모바일 1:1중국어)”입니다.본 과정은 스피킹의 흥미를 유발하여 말하기의 꾸준한 학습을 유도, 원어민들의 표현을 학습하고 활용하여 외국어 의사소통능력을 향상시키는데 목적을 두고 있습니다. 관련하여 아래에 간단히 안내해드리고, 자세한 사항은 아래와같은이 첨부합니다. <안내>- 대 상 : 숭실대학교 재학생 중, 한국장학재단 소득분위 0~3순위 해당자- 과 정 : 숭실대 야나두 과정(3개월 과정 / 6개월 과정)             숭실대 튜터링 과정(모바일 1:1영어 / 모바일 1:1중국어)- 선발자 혜택 : 수업료 전액 또는 일부 지원(지원금액은 한국장학재단 소득분위에 따라 심사 후 결정) - 참가 희망자 SH&M 전화번호 안내 : 02-820-0779 * SH&M의 역할- 수업 진행- 수업자료 배포- 출석 관리"],
+		];
+		var row4=[
+		["수강신청 관련 안내 및 Q&A"],
+		["2020.08.12", "최고관리자"],
+		["안녕하세요. 소프트웨어학부입니다. 코로나19 상황 악화로 수강관련 내용이 급격히 변동되어 혼란스러운 부분이 있을 거라 예상되어, 관련 기본정보를 안내드리오니 수강신청에 참고하시기 바랍니다. 수업방식은 크게 6가지 케이스로 분류되어 부제목에 표기하였습니다. 1) 대면강의: 실험실습, 프로젝트성 과목 등 전면 대면 수업 진행.2) 온라인(학습동영상): 비대면 수업으로 매 주차에 스마트캠퍼스에 업로드 된 동영상으로 학습 3) 온라인(화상강의): 비대면 수업으로 매 주차 정해진 강의시간에 실시간 화상강의로 학습4) 온라인(학습동영상+화상강의): 비대면 수업. 매 주 1회 정해진 강의시간에 실시간 화상강의 수업 진행 + 매주 1회 스마트캠퍼스 학습 동영상으로 학습 5) 온&오프(대면+학습동영상): 대면+비대면 혼합수업. 주 1회 정해진 강의시간에 대면수업 + 매 주차 1회 스마트캠퍼스 학습동영상으로 학습 6) 온&오프(대면+화상강의): 대면+비대면 혼합수업. 주 1회 정해진 강의시간에 대면수업 + 정해진 시간에 화상강의 1회 진행 (강의시간 옆 강의실이 포함되어 있는 시간이 대면수업입니다)  그 외 학부 사무실로 자주 들어오는 질문 답변은 아래에 정리하였습니다. 그 외 문의 사항은 02-820-0940 으로 연락바랍니다.  2020-2학기 스마트캠퍼스 사용 Q & A (학생용) Q1. 스마트캠퍼스 동영상 강의 출석률이 반영되지 않았습니다. A1. 스마트캠퍼스는 크롬으로 실행 시에 오류가 적습니다. 익스플로러 보다는 크롬을 권장합 니다.A2. 스마트캠퍼스 동영상재생 시에는 동시에 여러 강좌 동영상을 재생할 경우 출석률에 반 영이 안 될 수 있으니, 꼭 한 번에 한 강좌의 동영상만 재생하시기 바랍니다. A3. 스마트캠퍼스 동영상 출결 로그는 전부 기록됩니다.출결 사항에 이상이 있는 경우02-828-7133(원격교육혁신팀)로 연락하여 확인하시거나,강좌 교수님께 확인 요청바랍니다.  Q2. 온라인수업이라고 했는데 강의시간표에 시간이 입력되어 있습니다. 대면을 하는 건가요? A1. 온라인수업 화상강의가 포함되어 있는 경우 강의시간표에 있는 시간은 화상강의가 진행 되는 시간이며, 대면 수업시간은 아닙니다. A2. 온라인수업 학습동영상인 경우에는 강의시간에 교수자가 명기되어 있지 않습니다. 해당 경우는 중간고사 대면시험시간을 설정한 것입니다. 추후 중간고사가 해당시간에 대면으 로 진행됩니다.(개강 후 일정이 변경될 가능성도 있습니다.) A3. 서로 다른 온라인 수업의 중간고사 시험시간이 겹치는 경우에도 수강신청이 불가합니다.  Q3. 수업 관련 공지사항은 별도"],
+		];
+		var row5=[
+		["2020학년도 2학기 학과근로장학생 모집 안내"],
+		["2020.08.07", "최고관리자"],
+		["안녕하세요. 소프트웨어학부입니다. 코로나19 상황 악화로 수강관련 내용이 급격히 변동되어 혼란스러운 부분이 있을 거라 예상되어, 관련 기본정보를 안내드리오니 수강신청에 참고하시기 바랍니다. 수업방식은 크게 6가지 케이스로 분류되어 부제목에 표기하였습니다. 1) 대면강의: 실험실습, 프로젝트성 과목 등 전면 대면 수업 진행.2) 온라인(학습동영상): 비대면 수업으로 매 주차에 스마트캠퍼스에 업로드 된 동영상으로 학습 3) 온라인(화상강의): 비대면 수업으로 매 주차 정해진 강의시간에 실시간 화상강의로 학습4) 온라인(학습동영상+화상강의): 비대면 수업. 매 주 1회 정해진 강의시간에 실시간 화상강의 수업 진행 + 매주 1회 스마트캠퍼스 학습 동영상으로 학습 5) 온&오프(대면+학습동영상): 대면+비대면 혼합수업. 주 1회 정해진 강의시간에 대면수업 + 매 주차 1회 스마트캠퍼스 학습동영상으로 학습 6) 온&오프(대면+화상강의): 대면+비대면 혼합수업. 주 1회 정해진 강의시간에 대면수업 + 정해진 시간에 화상강의 1회 진행 (강의시간 옆 강의실이 포함되어 있는 시간이 대면수업입니다)  그 외 학부 사무실로 자주 들어오는 질문 답변은 아래에 정리하였습니다. 그 외 문의 사항은 02-820-0940 으로 연락바랍니다.  2020-2학기 스마트캠퍼스 사용 Q & A (학생용) Q1. 스마트캠퍼스 동영상 강의 출석률이 반영되지 않았습니다. A1. 스마트캠퍼스는 크롬으로 실행 시에 오류가 적습니다. 익스플로러 보다는 크롬을 권장합 니다.A2. 스마트캠퍼스 동영상재생 시에는 동시에 여러 강좌 동영상을 재생할 경우 출석률에 반 영이 안 될 수 있으니, 꼭 한 번에 한 강좌의 동영상만 재생하시기 바랍니다. A3. 스마트캠퍼스 동영상 출결 로그는 전부 기록됩니다.출결 사항에 이상이 있는 경우02-828-7133(원격교육혁신팀)로 연락하여 확인하시거나,강좌 교수님께 확인 요청바랍니다.  Q2. 온라인수업이라고 했는데 강의시간표에 시간이 입력되어 있습니다. 대면을 하는 건가요? A1. 온라인수업 화상강의가 포함되어 있는 경우 강의시간표에 있는 시간은 화상강의가 진행 되는 시간이며, 대면 수업시간은 아닙니다. A2. 온라인수업 학습동영상인 경우에는 강의시간에 교수자가 명기되어 있지 않습니다. 해당 경우는 중간고사 대면시험시간을 설정한 것입니다. 추후 중간고사가 해당시간에 대면으 로 진행됩니다.(개강 후 일정이 변경될 가능성도 있습니다.) A3. 서로 다른 온라인 수업의 중간고사 시험시간이 겹치는 경우에도 수강신청이 불가합니다.  Q3. 수업 관련 공지사항은 별도"],
+		];
+		var row6=[
+		["2020-2학기 SW분야 복수 및 융합전공 튜터링 운영안내 및 튜터 모집"],
+		["2020.08.04", "최고관리자"],
+		["1. 2020-2학기 SW분야 복수 및 융합전공 튜터링 안내  가. 운영목적: SW분야의 복수 및 융합전공 활성화  나. 운영내용: 튜티그룹(3~4인 구성) 대상의 전공 튜터링  다. 운영기간: 2020-2학기  라. 튜터지원금: 학생 1인당 총 1,200천원    1) 학부생: 400천원X3개월 (2020.10.-2020.12.)* 본 프로젝트는 SW중심대학 지원사업의 재원으로 운영되며‘과학기술정보통신부의 학생인건비 관리규정’에 따라 집행 및 운영됩니다.2. 튜터 추천요청  가. 추천조건    1) 대상학부(과): 컴퓨터학부, 소프트웨어학부, 글로벌미디어학부, 스마트시스템소프트웨어학과    2) 4대보험 미가입자    3) 연구비퍼센트 잔여분 보유자(학사 20%)      - BK21+ 및 타 학교, 기업대상 과제 모두 포함      - 튜터 포함 연구비퍼센트 70% 초과 시 지원 불가      - 스파르탄SW교육원에서 진행하는 2020-2학기 Grader와 중복 참여 불가  나. 모집 예정 튜터 수:  소프트웨어학부 3명(지원자가 다수 일 경우 학부심사 후 선발 예정)  3. 신청기간 및 방법  가. 신청기한: 2020.8.19.(수) 15:00  나. 신청방법: 첨부된 신청서 작성 소프트웨어학부 사무실로 제출 "],
+		];
+		var row7=[
+		["2020-2학기 공학교육인증 선-후수 교과목 수강신청 안내"],
+		["2020.07.31", "최고관리자"],
+		["1. 선-후수 교과목 안내  가. 목적 : 학과(부)별로 지정한 선-후수 교과목의 이수체계를 준수하도록 함  나. 내용    1) 선수교과목을 이수하지 않은 학생은 후수교과목 수강신청 시 신청이 제한됨    2) 이에 후수교과 수강신청서를 기간 내에 제출해야 함  다. 대상: 소프트웨어학부 3학년 4학년  라. 해당 교과목 리스트 :     선수과목              학년학기 후수과목   학년학기*선후수로 연결된 교과목의 선수과목을 이수하지 않았을 경우 2학기 후수교과목의 수강신청이 제한됨.2. 후수교과 수강신청서 제출 안내신청서 제출기간: 8/3(월) ~8/13(목) *기한 엄수 기한 내 미제출시 수강신청진행에 제한이 있을 수 있음. 신청서제출 방법: 첨부된 후수교과 수강신청서를 작성하여 제출(sw@ssu.ac.kr 또는 소프트웨어학부사무실)                    후수교과목 강의 담당교수님께 메일 또는 상담을 통해 허가를 받아야하며, 신청서제출시                    허가 증빙자료(메일회신내용첨부 문자메시지첨부 등) 첨부하여 회신하여야함.                     *PD교수 확인란은 비우고 제출 수강신청 방법: 학생직접 수강신청은 불가, 학부사무실에서 수강신청기간 동안 해당 수강신청일자에 자체 처리* 2020-1학기 여석과 선후수수강신청제한으로 인해 많은 민원이 발생하여 이번학기의 경우   신청서제출일을 수강신청 전으로 조절하여 학부에서 수강신청일에 직접 수강신청을 진행해줄 예정이오니   반드시 제출기한을 지켜주시기 바랍니다. 제출기간 이후 제출할 경우 선후수 허가를 받아도 여석이 부족할   경우 수강이 불가할 수 있습니다.  "],
+		];
+		var row8=[
+		["2020학년도 2학기 '숭실평화통일스쿨' 운영 변경 안내"],
+		["2020.07.27", "최고관리자"],
+		["2020학년도 2학기 ‘숭실평화통일스쿨’ 운영 변경 내용을 다음과 같이 안내합니다. 1. 변경사유: 코로나-19의 장기화에 따라, 확산 방지 및 학생 안전을 위해 외부 대면 수업 진행 불가 2. 변경내용  가. 2학기 중 무박2일(교‧내외 통학형)로 진행하기로 했던 숭실평화통일스쿨을 2020학년도       전체에 한하여 한시적으로 온라인 수업의 형태로 대체하기로 함.  나. 숭실평화통일스쿨은 총 7개 회차의 온라인 수업으로 대체 제공될 예정이며, 해당 수업을 모두       이수하여야만 ‘숭실평화통일스쿨’ 이수로 인정함.  다. 온라인 수업으로 진행된 숭실평화통일스쿨 점수는 다음 학기로 이월되지 않음. 3. 요청사항  가. 위와 같이 2020학년도에 시행되는 숭실평화통일스쿨은 코로나-19로 인한 한시적       조치사항으로, 2021학년도부터는 오프라인 스쿨 진행 예정.변경내용구 분기 존변 경 후일 정무박 2일(교‧내외 통학형)비대면 온라인 수업 진행장 소교내 및 외부(파주 오두산 통일전망대 등)숭실 스마트캠퍼스 LMS(비대면 온라인 수업)3. 숭실평화통일스쿨 온라인 수업 진행 방법  가. 9주차 수업(10월 29일)부터 7차시에 거쳐 숭실평화통일스쿨 온라인 수업 대체 제공  나. 강의내용은 숭실평화통일스쿨 프로그램을 반영하여 제작       - 주요 강의 내용: 겨레의 봄, 미리 경험한 통일 개성공단, 숭실통일맨, 오두산통일맨,                                북한문화토크콘서트(층간소음)  다. 숭실평화통일스쿨로 제공되는 모든 온라인 수업을 이수하여야만 숭실평화통일스쿨 이수로       인정함"],
+		];
+		var row9=[
+		["(AI 공모전 개최안내)2020년도 KSB 인공지능 프레임워크/플랫폼(BeeAI) 활용 공모전 개최 안내(~8.7(금))"],
+		["2020.07.24", "최고관리자"],
+		["＊KSB는 “Knowledge-converged Super Brain / 초연결 자가학습형 지식융합 슈퍼브레인” 으로  - 초연결 사물인터넷으로부터 멀티모달 데이터를 수집하여 전처리 및 정제하고 스스로 학습하여 지식을추출한 후 도메인의 전문가 지식과 융합하여 추론·최적화함으로써 예측·예방·제어·최적화된 지능서비스를 제공하는 인공지능 플랫폼 입니다. [첨부. KSB 인공지능 프레임워크 개요 참조]"],
+		];
+		var row10=[
+		["제7회 소프트웨어 개발보안 경진대회」 홍보"],
+		["2020.07.15", "최고관리자"],
+		["행사명 「제7회 소프트웨어 개발보안 경진대회」주  제 대한민국의 안전을 책임지는 서비스참가방법 Java, Python 언어 중 한가지를 선택하여 안전한 SW 개발참가자격  대학생 또는 대학원생으로 구성된 팀(2인 이상 4인 이하) 주요일정 ① 참가신청 : 7.13(월) ~ 8.2(일)  ② 서류심사 및 발표 : 8.7(금) ③ 사전 설명회/교육 : 8.11(화)/8.14(금) ④ 해커톤 본선 : 8.20(목) ∼ 21(금)    ※ 시상은 SW개발보안 컨퍼런스에서 수여시상내역 행정안전부장관상 6점 등 총 12점, 기업후원사상 각 1점  총상금 2,500만원대회 홈페이지http://www.swsecurecoding.kr문의처 경진대회 운영사무국(070-4006-8493), swsecucording@gmail.com)"],
+		];
+	</script>
+	  <!-- click function은 맨위에서 선택했을 경우 저장 -->
+	  <script type="text/javascript">
+	  	function click_school_notice(){
+	  		location.href="school_notice.html"
+	  	}
+	  	function click_department_notice(){
+	  		location.href="department_notice.html"
+	  	}
+	  	function click_department_graduate(){
+	  		location.href="department_graduate.html"
+	  	}
+	  	function click_department_learning(){
+	  		location.href="department_learning.html"
+	  	}
+	  	function click_today_menu(){
+	  		location.href="today_menu.html"
+	  	}
+	  	function click_campus_map(){
+	  		location.href="campus_map.html"
+	  	}
+
+		function set_computer(){
+	  		location.href="department_notice.html"
+	  	}
+	  	function set_SW(){
+	  		location.href="department_notice_SW.html"
+	  	}
+	  	function set_count(index){
+	  		i=1;
+	  		if(index == 1){
+	  			for (i = 0; i < row1.length; i++) {
+	                for (j = 0; j < row1[i].length; j++) {
+	                    $(".notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row1[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 2){
+	  			for (; i < row2.length; i++) {
+	                for (j = 0; j < row2[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row2[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 3){
+	  			for (; i < row3.length; i++) {
+	                for (j = 0; j < row3[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row3[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 4){
+	  			for (; i < row4.length; i++) {
+	                for (j = 0; j < row4[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row4[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 5){
+	  			for (; i < row5.length; i++) {
+	                for (j = 0; j < row5[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row5[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 6){
+	  			for (; i < row6.length; i++) {
+	                for (j = 0; j < row6[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row6[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 7){
+	  			for (; i < row7.length; i++) {
+	                for (j = 0; j < row7[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row7[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 8){
+	  			for (; i < row8.length; i++) {
+	                for (j = 0; j < row8[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row8[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 9){
+	  			for (; i < row9.length; i++) {
+	                for (j = 0; j < row9[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row9[i][j]);
+	                }
+	            }
+	  		}
+	  		else if(index == 10){
+	  			for (; i < row10.length; i++) {
+	                for (j = 0; j < row10[i].length; j++) {
+	                    $("#notice_script tr:eq(" + i + ") td:eq(" + j + ")").html(row10[i][j]);
+	                }
+	            }
+	  		}
+	  	}
+	  	function switch_table(){
+	  		var x = document.getElementById("notice_list");
+	  		var y = document.getElementById("notice_script");
+	  		var z = document.getElementById("notice_script_button");
+	  		var index = 1;
+			if (x.style.display === 'none') {
+			   	x.style.display = '';
+			   	y.style.display = 'none';
+			   	z.style.display = 'none';
+			} else {
+			   	x.style.display = 'none';
+			   	y.style.display = '';
+			   	z.style.display = '';
+			}
+	  	}
+
+	  </script>
+</body>
+</html>
