@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   <!-- CSS 내부 장착 -->
+   <style> 
+      .header img {
+        float: left;
+      }
+      .toMain_img_name {
+        padding-top: 15px;
+      }
+      .upbutton {
+        background-color: #64CCC9;
+        color: #555555;
+        border-radius: 12px;
+        font-size: 20px;
+        padding: 12px 28px;
+        margin-top: 40px;
+        margin-right: 10px;
+        cursor: pointer;
+        border: 1px solid #64CCC9;
+      }
+      .upbutton:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #64CCC9;
+      }
+      .already_click {
+        border-radius: 12px;
+        font-size: 20px;
+        padding: 12px 28px;
+        margin-top: 40px;
+        margin-right: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: black;
+        border: 2px solid #64CCC9;
+      }
+
+      .footer_row {
+        width: 30%;
+        float: left;
+        margin-left: 10%;
+        line-height: 150%;
+      }
+      .footer_inside {
+        list-style:none;
+      }
+
+      .menu_box{
+        background-color: rgba( 0, 0, 0, 0.0 );
+        float: top;
+        width: 100%;
+        height: 250px;
+      }
+
+      .res_click {
+         background-color: white;
+         color: black;
+         border-radius: 8px;
+         font-size: 20px;
+         padding: 12px 28px;
+         margin-top: 40px;
+         margin-left: 20px;
+         margin-right: 20px;
+         cursor: pointer;
+      }
+      .res_click:hover {
+         background-color: rgba( 0, 0, 0, 0.8 );
+         color: white;
+      }
+
+      .map_class {
+      	width: 86%;
+      	align-items: center;
+      	margin: auto; 
+      }
+      .map_class td{
+      	width: 7%;
+      	text-align: center;
+      	padding: 10px;
+      	font-size: 20px; 
+      	border: 1px solid black;
+      	background-color: white; 
+      	border-radius: 4px;
+      	cursor: pointer;
+        background-color: #f0f0f0;
+      }
+      .description {
+      	word-break: keep-all;
+        position: relative;
+      	width: 60%;
+      	float: left;
+        margin-left: 10%;
+        background: #f0f0f0;
+      }
+      .description th {
+      	border-bottom: 1px solid #888888;
+      }
+      .description td {
+      	border-bottom: 1px solid #888888;
+      }
+      #des_title {
+      	font-size: 30px;
+      }
+
+      #struct_img {
+        width: 20%;
+        float: right;
+        margin-right: 10%;
+      }
+   </style>
+   <!-- 맨위 주소창 부분 -->
+   <link rel="shortcut icon" type="image/x-icon" href="https://github.com/defaultgroup/PathFinder_imgs/blob/master/title_img_square.jpg?raw=true">
+   <title>길잡이</title>
+</head>
+<!-- 지도 api 호출 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9f5f7be0b29ed90d3a758c452ae3279a"></script>
+<!-- 표 안에 데이터를 넣어주기 위해 jquery 호출 -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<body>
+   <div class="menu_box">
+      	<div class = "header">
+         	<a href="Main_page.html">
+            <img src="https://github.com/defaultgroup/PathFinder_imgs/blob/master/title_img_small.png?raw=true" alt="길잡이 로고" width="120" height="150">
+            <img class="toMain_img_name" src="https://github.com/defaultgroup/PathFinder_imgs/blob/master/path_finder_name.png?raw=true" alt="길잡이 이름" width="200" height="120">
+         	</a>
+	        <button class = "upbutton" onclick="click_school_notice()">학교 공지사항</button>
+	        <button class = "upbutton" onclick="click_department_notice()">학과 공지사항</button>
+	        <button class = "upbutton" onclick="click_department_graduate()">학과 졸업요건</button>
+	        <button class = "upbutton" onclick="click_department_learning()">학과 교육과정</button>
+	        <button class = "upbutton" onclick="click_today_menu()">오늘의 식단</button>
+	        <button class = "already_click" onclick="click_campus_map()">캠퍼스 맵</button>
+      	</div>
+    <br><br>
+    <table class="map_class">
+    	<tr>
+    		<td onclick="move_center_func(0)">한경직 기념관</td>
+    		<td onclick="move_center_func(1)">형남 공학관</td>
+    		<td onclick="move_center_func(2)">백마관</td>
+    		<td onclick="move_center_func(3)">정보과학관</td>
+    		<td onclick="move_center_func(4)">학생회관</td>
+    		<td onclick="move_center_func(5)">미래관</td>
+    		<td onclick="move_center_func(6)">중앙도서관</td>
+    	</tr>
+    	<tr>
+    		<td onclick="move_center_func(7)">조만식 기념관</td>
+    		<td onclick="move_center_func(8)">진리관</td>
+    		<td onclick="move_center_func(9)">문화관</td>
+    		<td onclick="move_center_func(10)">숭덕경상관</td>
+    		<td onclick="move_center_func(11)">벤처중소기업센터</td>
+    		<td onclick="move_center_func(12)">교육관</td>
+    		<td onclick="move_center_func(13)">베어드홀</td>
+    	</tr>
+    </table>
+   	</div>
+    <hr>
+   <br><br>
+
+   <!-- 여기서부터 맵 api -->
+   	<div id="map" style="margin-left: 10%; margin-right: 10%; width: 80%; height: 500px;"></div>
+   	<br>
+   	<!-- 여기서부터 설명 table -->
+   	<table class="description">
+   		<tr>
+   			<td id="des_title" colspan="2">한경직 기념관</td>
+   		</tr>
+   		<tr>
+   			<th>규모</td>
+   			<td>지상 2층</td>
+   		</tr>
+   		<tr>
+   			<th>시설</td>
+   			<td>예배실, 전시실</td>
+   		</tr>
+   		<tr>
+   			<th>스토리</td>
+   			<td>한경직목사의 공로를 기념하고 그의 사업을 계승,발전시켜 나가고 학생들을 교육하는 채플을 마련하기 위해 건립</td>
+   		</tr>
+   		<tr>
+   			<th>소개</td>
+   			<td>
+한경직기념관은 평양 숭실 동문이자 본교 재건의 주역으로 제1대 학장, 제5대 이사장으로서 숭실의 재건과 중흥을 위해 진력해 온 한경직 목사의 공로를 기념하고 또 그가 한국 교계 지도자로서 일평생 힘써온 사업을 계승, 발전시켜 나가기 위해, 그리고 초교파적 선교정책을 모색하고 실천에 옮기는 선교센터 및 미래 우리나라의 주인공들을 교육하는 채플을 마련하기 위한 목적에서 건립되었다.</td>
+   		</tr>
+   		<tr></tr>
+   	</table>
+    <img id = "struct_img" src="https://github.com/defaultgroup/PathFinder_imgs/blob/master/hangyeongjik.jpg?raw=true" alt="해당 건물 이미지">
+<div style="clear: both;"></div>
+   <br>
+   <hr>
+   <footer class="lowest">
+    <div class="row">
+      <div class="footer_row">
+        <h5>Contact with Developer</h5>
+        <ul class="footer_inside">
+          <li><a class="text-muted">심상현 - 5338095@gmail.com</a></li>
+          <li><a class="text-muted">김한주 - kihaju3188@gmail.com</a></li>
+          <li><a class="text-muted">이재원 - elroy03@naver.com</a></li>
+        </ul>
+      </div>
+      <div class="footer_row">
+        <h5>Donate to Developer</h5>
+        <ul class="footer_inside">
+          <li><a class="text-muted">우리 은행 : 1002-659-539074(심상현)</a></li>
+          <li><a class="text-muted">하나 은행 : 21991028223907(김한주)</a></li>
+          <li><a class="text-muted">국민 은행 : 937702-00-724765(이재원)</a></li>
+        </ul>
+    </div>
+  </footer>
+   	<!-- 지도 위치 변경 함수 모음 -->
+   	<script type="text/javascript">
+   		function move_center_func(i){
+   			if(i === 0){
+   				var moveLatLon = new kakao.maps.LatLng(37.495575, 126.957521);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/hangyeongjik.jpg?raw=true";
+   				for (i = 0; i < hangyeongjik.length; i++) {
+                    for (j = 0; j < hangyeongjik[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(hangyeongjik[i][j]);
+                    }
+                }   				
+   			}
+   			else if(i === 1){
+   				var moveLatLon = new kakao.maps.LatLng(37.495741, 126.956207);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/hyeongnam.jpg?raw=true";
+   				for (i = 0; i < hyeongnam.length; i++) {
+                    for (j = 0; j < hyeongnam[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(hyeongnam[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 2){
+   				var moveLatLon = new kakao.maps.LatLng(37.497805, 126.956137);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/baekma.jpg?raw=true";
+   				for (i = 0; i < beakma.length; i++) {
+                    for (j = 0; j < beakma[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(beakma[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 3){
+   				var moveLatLon = new kakao.maps.LatLng(37.494527, 126.959700);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/intelscience.jpg?raw=true";
+   				for (i = 0; i < intelscience.length; i++) {
+                    for (j = 0; j < intelscience[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(intelscience[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 4){
+   				var moveLatLon = new kakao.maps.LatLng(37.496893, 126.956908);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/student.jpg?raw=true";
+   				for (i = 0; i < student.length; i++) {
+                    for (j = 0; j < student[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(student[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 5){
+   				var moveLatLon = new kakao.maps.LatLng(37.495609, 126.958481);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/future.jpg?raw=true";
+   				for (i = 0; i < future.length; i++) {
+                    for (j = 0; j < future[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(future[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 6){
+   				var moveLatLon = new kakao.maps.LatLng(37.496264, 126.958588);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/library.jpg?raw=true";
+   				for (i = 0; i < library.length; i++) {
+                    for (j = 0; j < library[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(library[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 7){
+   				var moveLatLon = new kakao.maps.LatLng(37.497213, 126.958314);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/jomansik.jpg?raw=true";
+   				for (i = 0; i < joemansik.length; i++) {
+                    for (j = 0; j < joemansik[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(joemansik[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 8){
+   				var moveLatLon = new kakao.maps.LatLng(37.496881, 126.957466);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/jinri.jpg?raw=true";
+   				for (i = 0; i < jinri.length; i++) {
+                    for (j = 0; j < jinri[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(jinri[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 9){
+   				var moveLatLon = new kakao.maps.LatLng(37.496587, 126.954253);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/moonhwa.jpg?raw=true";
+   				for (i = 0; i < moonhwa.length; i++) {
+                    for (j = 0; j < moonhwa[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(moonhwa[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 10){
+   				var moveLatLon = new kakao.maps.LatLng(37.496898, 126.954988);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/SoongDuk.jpg?raw=true";
+   				for (i = 0; i < soongduk.length; i++) {
+                    for (j = 0; j < soongduk[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(soongduk[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 11){
+   				var moveLatLon = new kakao.maps.LatLng(37.497528, 126.957477);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/venture.jpg?raw=true";
+   				for (i = 0; i < venture.length; i++) {
+                    for (j = 0; j < venture[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(venture[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 12){
+   				var moveLatLon = new kakao.maps.LatLng(37.497800, 126.956811);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/education.jpg?raw=true";
+   				for (i = 0; i < education.length; i++) {
+                    for (j = 0; j < hyeongnam[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(education[i][j]);
+                    }
+                }
+   			}
+   			else if(i === 13){
+   				var moveLatLon = new kakao.maps.LatLng(37.496464, 126.956393);
+          document.getElementById('struct_img').src = "https://github.com/defaultgroup/PathFinder_imgs/blob/master/beardhall.png?raw=true";
+   				for (i = 0; i < beardhall.length; i++) {
+                    for (j = 0; j < beardhall[i].length; j++) {
+                        $(".description tr:eq(" + i + ") td:eq(" + j + ")").html(beardhall[i][j]);
+                    }
+                }
+   			}
+			map.setCenter(moveLatLon);
+			map.setLevel(2);
+   		}
+   	</script>
+   	<!-- 표안에 들어갈 함수값 -->
+   	<script>
+   		var hangyeongjik = [
+   		["한경직기념관"],
+   		["지상 2층"],
+   		["예배실, 전시실"],
+   		["한경직목사의 공로를 기념하고 그의 사업을 계승,발전시켜 나가고 학생들을 교육하는 채플을 마련하기 위해 건립"],
+   		["한경직기념관은 평양 숭실 동문이자 본교 재건의 주역으로 제1대 학장, 제5대 이사장으로서 숭실의 재건과 중흥을 위해 진력해 온 한경직 목사의 공로를 기념하고 또 그가 한국 교계 지도자로서 일평생 힘써온 사업을 계승, 발전시켜 나가기 위해, 그리고 초교파적 선교정책을 모색하고 실천에 옮기는 선교센터 및 미래 우리나라의 주인공들을 교육하는 채플을 마련하기 위한 목적에서 건립되었다."],
+   		];
+   		var hyeongnam = [
+   		["형남공학관"],
+   		["지하 1층 / 지상 15층"],
+   		["공과대학 실험실, 강의실, 매점"],
+   		["숭실대 이사장 및 총장을 역임했던 김형남 박사의 이름을 따서 형남공학관으로 이름을 붙임"],
+   		["숭실대 이사장 및 총장을 역임했던 김형남 박사의 이름을 따서 형남공학관으로 이름붙였으며, 지하 1층, 지상 15층으로, 2층에는 입학처, 학생처, 경력개발센터 등 각종 학사관련 업무를 처리할 수 있는 종합 민원센터가 있는 건물이다. 15층에서는 63빌딩 및 한강, 남산타워까지 볼 수 있는 건물이다."],
+   		];
+   		var beakma = [
+   		["백마관"],
+   		["총건평 925평 / 지하 1층 / 지상 3층"],
+   		["강의실, 교수연구실, 축구부 숙소"],
+   		["백마관을 건립함으로써 '1단대 1건물' 실현"],
+   		["1993년도 9월 준공한 건물로 법과대학으로 사용되었었다. 부족한 강의실과 교수실 및 축구부 숙소를 마련하기 위해 지하1층, 지상3층, 총건평 925평 규모로 건립함으로써, ‘1단대 1건물’을 실현을 가능케 하였다."],
+   		];
+   		var intelscience = [
+   		["정보과학관"],
+   		["지하 1층 / 지상 6층"],
+   		["IT대학 실습실, 강의실, 교수연구실"],
+   		["컴퓨터 전문교육실현을 목적으로 신축"],
+   		["정보과학관은 1995년 컴퓨터 전문교육실현을 목적으로 신축되었다. 현재 정보과학 교육의 전용공간으로 활용되고 있다."],
+   		];
+   		var student = [
+   		["학생회관"],
+   		["지하 2층 / 지상 5층"],
+   		["사무공간, 학생회, 동아리, 학생식당, 편의시설"],
+   		["자연 환기가 원활하고 채광이 잘 들도록 대지와 건물 사이에 틈을 줌. 레벨 차를 이용한 공간구성"],
+   		["학생회관은 지하2층, 지상5층으로 건축되었다. 사무공간, 학생회, 동아리, 편의시설, 문화공간이 들어섰고 동선이 충돌되지 않도록 기능적으로 배치되었다. 중앙잔디 광장 인근에 위치해 있어 학생들이 동아리와 체육활동을 하층 편리하게 이용할 수 있다. 또한 자연 환기가 원활하고 채광이 잘 들도록 대지와 건물 사이에 틈을 주었고 레벨 차를 이용한 공간구성도 돋보인다."],
+   		];
+   		var future = [
+   		["미래관"],
+   		["지하 1층 / 지상 5층"],
+   		["강의실"],
+   		["1972년 10월 개교 75주년 기념사업의 일환으로 착공. 1973년 12월 준공"],
+   		["학생자치활동 공간으로 1972년 10월 개교 75주년 기념사업의 일환으로 착공되어 1973년 12월 지하 1층, 지상 5층, 연건평 1,430평 규모로 준공되었다."],
+   		];
+   		var library = [
+   		["중앙도서관"],
+   		["총 건평 2,768평 / 지하 1층 / 지상 6층"],
+   		["서고, 열람실, 숭실마루(카페 및 휴게공간)"],
+   		["1967년 634평의 독립건물로 운영. 1983년 2768평 6층건물로 이전"],
+   		["1967년 634평의 독립건물을 지어 운영되던 도서관은 교육규모가 확대되어 가자 건평 2,768평 6층 건물을 긴축하여 1983년에 이전하였다. 중앙도서관은 개관 당시 2,041석의 현대식 시설을 갖추고 학생들의 학업향상에 크게 기여하였다."],
+   		];
+   		var joemansik = [
+   		["조만식기념관"],
+   		["지하 2층 / 지상 8층"],
+   		["인문-사회계열 강의실, 교수연구실"],
+   		["숭실대 동문인 민족의 지도자 조만식 선생님을 기념하며 세워진 건물"],
+   		["숭실대 동문인 민족의 지도자 조만식 선생님을 기념하며 세워진 건물로, 인문-사회계열 강의실과 연구실이 있다. 우측 건물 3층이 계단으로 연결되어 있는 매우 독특하고 편리한 구조로 2008년 한국건축문화대상을 수상하였다."],
+   		];
+   		var jinri = [
+   		["진리관"],
+   		["지하 1층 / 지상 5층"],
+   		["인문-사회계열 강의실, 매점등의 편의 시설"],
+   		["1978년 도서관으로 사용. 1982년 인문관으로 사용. 현재 진리관으로 사용"],
+   		["1967년 신축하여 1978년 증축하여 도서관으로 쓰이다 1982년 인문관으로 사용하였다. 현재는 리모델링으로 세련된 모습을 하여 진리관으로 사용하고 있다."],
+   		];
+   		var moonhwa = [
+   		["문화관"],
+   		["총 건평 1,270평 / 지상 5층"],
+   		["과학교육시설, 교수연구실"],
+   		["제 2공학관으로 불리다가 현재 문화관으로 불림"],
+   		["과학교육에 중점을 두어 산업건설의 역군을 양성하는데 심혈을 기울이던 숭실은 1971년 8월 총 건평 1,270평, 5층의 제 2공학관을 완공하였다. 당시 최신식 실험기자재와 각종 기계 시설을 도입, 과학교육을 위한 완벽한 시설을 갖추게 되었다. 제 2공학관으로 불리다가 현재는 문화관으로 불리고 있다."],
+   		];
+   		var soongduk = [
+   		["숭덕경상관"],
+   		["지하 2층 / 지상 6층"],
+   		["경제통상대학, 경영대학 강의실, 일반 강의실, 행정실, 교수실"],
+   		["철거된 경상관 공간을 대체하는 건물로서 2019년에 신축되었음. 경영·경통대 학생회실도 갖추고 있음"],
+   		["숭덕경상관은 2019년 신축된 건물이다. 1964년 캠퍼스 공간 설계에 의해 세워졌던 경상관을 허물고 신축된 건물로서, 경영·경통대 수업 공간과 교수들의 연구동으로 주로 이용되고 있다. 학생 휴게 공간 및 편의시설이 충분히 갖춰져 있고, 특히 외국이 유학생들의 고충을 상시 도울 수 있는 외국인 유학생 전용 사무실도 마련되어 있다."],
+   		];
+   		var venture = [
+   		["벤처중소기업센터"],
+   		["총건평 2700평 / 지하 1층 / 지상 7층"],
+   		["중소기업학과와 중소기업대학원의 각종 강의실, 창업기업실, 교수연구실"],
+   		["한국 최초로 중소기업학과와 중소기업대학원을 설립"],
+   		["한국 최초로 중소기업학과와 중소기업대학원을 설립하여 중소기업분야의 인재를 집중 양성하고 있다. 그 중추적 역할을 담당할 목적으로 2001년 지하 1층 지상 7층 약 2,700평 규모의 벤처 중소기업센터를 신축했다."],
+   		];
+   		var education = [
+   		["교육관"],
+   		["지하 1층 / 지상 3층"],
+   		["제 136학군단 본부, 훈육관실"],
+   		["교육관은 군사교육이 병행되던 1970년대 대학캠퍼스의 상징적인 건물"],
+   		["교육관은 군사교육이 병행되던 1970년대 대학캠퍼스의 상징적인 건물로, 지하1층 지상3층 규모로 신축되었다. 제 136학군단 본부 건물로 사용되는 한편, 교련 체육교육 공간으로 활용되었다."],
+   		];
+   		var beardhall = [
+   		["베어드홀"],
+   		["지하 1층 / 지상 5층"],
+   		["대학본부, 자연과학대학의 각종 실험실, 교수 연구실"],
+   		["신축 과학관을 베어드 박사의 이름을 따서 베어드홀로 변경"],
+   		["1988년 지상 5층 지하1층으로 지어진 신축 과학관은 유리거울로 된 창과 신체장애자 이용을 최대한 배려한 구조로 지어졌으며, 한국 건축문화 발전에 기여한 공로로 한국건축작가협회상을 수상하였다. 평양 숭실캠퍼스 당시 최고의 실습기자재와 전문 교육시설을 완비한 ‘과학관(Science Hall)’의 명칭을 그대로 사용하였으나, 현재는 베어드 박사의 이름을 따 베어드홀이라 부른다. 최신 설비를 갖춘 자연과학대학의 각종 실험실과 교수연구실이 입주하고 일부는 대학본부 사무실로 사용하고 있다."],
+   		];
+   	</script>
+     <!-- click function은 맨위에서 선택했을 경우 저장 -->
+     <script type="text/javascript">
+        function click_school_notice(){
+           location.href="school_notice.html"
+        }
+        function click_department_notice(){
+           location.href="department_notice.html"
+        }
+        function click_department_graduate(){
+           location.href="department_graduate.html"
+        }
+        function click_department_learning(){
+           location.href="department_learning.html"
+        }
+        function click_today_menu(){
+           location.href="today_menu.html"
+        }
+        function click_campus_map(){
+           location.href="campus_map.html"
+        }
+     </script>
+
+     <!-- 지도 position 저장 및 이용 -->
+     <script>
+     	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    	mapOption = { 
+        	center: new kakao.maps.LatLng(37.496455, 126.957380), // 지도의 중심좌표
+        	level: 3 // 지도의 확대 레벨
+    	};
+
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+		// 마커를 표시할 위치와 title 객체 배열입니다 
+		var positions = [
+	    	{
+	        	title: '한경직 기념관', 
+	    	    latlng: new kakao.maps.LatLng(37.495575, 126.957521)
+	    	},
+	    	{
+	    	    title: '형남 공학관', 
+	    	    latlng: new kakao.maps.LatLng(37.495741, 126.956207)
+	    	},
+	    	{
+	    	    title: '백마관', 
+	    	    latlng: new kakao.maps.LatLng(37.497805, 126.956137)
+	    	},
+	    	{
+	    	    title: '정보과학관', 
+	    	    latlng: new kakao.maps.LatLng(37.494527, 126.959700)
+	    	},
+	    	{
+	    	    title: '학생회관', 
+	    	    latlng: new kakao.maps.LatLng(37.496893, 126.956908)
+	    	},
+	    	{
+	    	    title: '미래관', 
+	    	    latlng: new kakao.maps.LatLng(37.495609, 126.958481)
+	    	},
+	    	{
+	    	    title: '중앙도서관', 
+	    	    latlng: new kakao.maps.LatLng(37.496264, 126.958588)
+	    	},
+	    	{
+	    	    title: '조만식기념관', 
+	    	    latlng: new kakao.maps.LatLng(37.497213, 126.958314)
+	    	},
+	    	{
+	    	    title: '진리관', 
+	    	    latlng: new kakao.maps.LatLng(37.496881, 126.957466)
+	    	},
+	    	{
+	    	    title: '문화관', 
+	    	    latlng: new kakao.maps.LatLng(37.496587, 126.954253)
+	    	},
+	    	{
+	    	    title: '숭덕경상관', 
+	    	    latlng: new kakao.maps.LatLng(37.496898, 126.954988)
+	    	},
+	    	{
+	    	    title: '벤쳐중소기업센터', 
+	    	    latlng: new kakao.maps.LatLng(37.497528, 126.957477)
+	    	},
+	    	{
+	    	    title: '교육관', 
+	    	    latlng: new kakao.maps.LatLng(37.497800, 126.956811)
+	    	},
+	    	{
+	    	    title: '베어드홀',
+	        	latlng: new kakao.maps.LatLng(37.496464, 126.956393)
+	    	}
+		];
+
+	// 마커 이미지의 이미지 주소입니다
+		var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+		map.setZoomable(false);
+
+		for (var i = 0; i < positions.length; i++) {
+		    
+		    // 마커 이미지의 이미지 크기 입니다
+		    var imageSize = new kakao.maps.Size(24, 35); 
+		    
+		    // 마커 이미지를 생성합니다    
+		    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+		    
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+            position: positions[i].latlng, // 마커를 표시할 위치
+            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image : markerImage // 마커 이미지 
+		    });
+		}
+	</script>
+</body>
+</html>
